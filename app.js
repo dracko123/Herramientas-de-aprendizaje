@@ -477,12 +477,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       pinEl.style.transform = `translate(${transX}, ${transY})`;
 
-      if (isMatched) {
+      if (isMatched || state.mode === 'study') {
         pinEl.innerHTML = `<span><strong>${part.num}</strong>. ${part.nombre}</span>`;
         pinEl.classList.add('matched');
       } else {
         pinEl.textContent = `${part.num}`;
-        pinEl.classList.remove('matched');
       }
 
       // Eventos Drag and Drop y Clic
@@ -616,33 +615,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const part = WORD_PARTS_DATA.find(p => p.id === partId);
     if (!part) return;
 
-    // Limpiar selección previa en todos los pines
-    document.querySelectorAll('.target-pin').forEach(p => {
-      p.classList.remove('selected-study-active');
-      const pPart = WORD_PARTS_DATA.find(item => item.id === p.dataset.partId);
-      if (pPart && !state.matchedParts.has(pPart.id)) {
-        p.textContent = `${pPart.num}`;
-        p.classList.remove('matched');
-      }
-    });
-
-    // Expandir y resaltar exclusivamente el pin tocado
-    const selectedPin = document.querySelector(`.target-pin[data-part-id="${partId}"]`);
-    if (selectedPin) {
-      selectedPin.classList.add('selected-study-active', 'matched');
-      selectedPin.innerHTML = `<span><strong>${part.num}</strong>. ${part.nombre}</span>`;
-    }
-
     const hintHtml = state.mode === 'study' ? `<div style="font-size: 0.8rem; color: #64748b; margin-top: 4px;">💡 <em>Pista: ${part.pista}</em></div>` : '';
 
     dom.pedagogicalInfo.innerHTML = `
       <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
-        <span style="background: ${part.color}; color: white; border-radius: 50%; width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold;">${part.num}</span>
-        <strong style="color: ${part.color}; font-size: 1rem;">${part.nombre}</strong>
+        <span style="background: ${part.color}; color: white; border-radius: 50%; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold;">${part.num}</span>
+        <strong style="color: ${part.color}; font-size: 0.95rem;">${part.nombre}</strong>
       </div>
-      <p style="margin-bottom: 6px; font-size: 0.9rem; line-height: 1.4;">${part.descripcion}</p>
-      <div style="background: #f1f5f9; border-left: 3.5px solid ${part.color}; padding: 6px 10px; border-radius: 4px; margin-top: 4px; font-size: 0.84rem; color: #1e293b;">
-        <strong>🎯 Función Principal:</strong> ${part.funcion}
+      <p style="margin-bottom: 4px;">${part.descripcion}</p>
+      <div style="background: #f1f5f9; border-left: 3px solid ${part.color}; padding: 4px 8px; border-radius: 2px; margin-top: 4px;">
+        <strong>🎯 Función:</strong> ${part.funcion}
       </div>
       ${hintHtml}
     `;
