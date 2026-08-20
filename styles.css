@@ -1,0 +1,1537 @@
+/* ==========================================================================
+   FICHA DESCRIPTIVA: PARTES DE LA INTERFAZ DE MICROSOFT WORD
+   Estilos CSS inspirados 100% en la Ficha Técnica Oficial (11 Partes)
+   ========================================================================== */
+
+:root {
+  --ms-blue-dark: #0f3e82;
+  --ms-blue: #185abd;
+  --ms-blue-light: #2b579a;
+  --ms-blue-accent: #0078d4;
+  --ms-blue-subtle: #edf4fc;
+  
+  /* Paleta oficial de colores por número de parte según la Ficha Técnica */
+  --part-1: #1e40af;  /* Barra de título - Azul */
+  --part-2: #16a34a;  /* Acceso rápido - Verde */
+  --part-3: #7c3aed;  /* Cinta de opciones - Morado */
+  --part-4: #ea580c;  /* Grupos de comandos - Naranja */
+  --part-5: #d97706;  /* Área de trabajo - Dorado */
+  --part-6: #db2777;  /* Regla - Rosa / Fucsia */
+  --part-7: #0d9488;  /* Barras desplazamiento - Turquesa */
+  --part-8: #2563eb;  /* Barra de estado - Azul */
+  --part-9: #0284c7;  /* Botones de vista - Celeste */
+  --part-10: #e11d48; /* Control de zoom - Rojo anaranjado */
+  --part-11: #dc2626; /* Control de ventana - Rojo */
+
+  --ribbon-bg: #f3f2f1;
+  --ribbon-border: #d2d0ce;
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+  --success: #15803d;
+  --danger: #b91c1c;
+  --bg-app: #f0f4f9;
+  --card-bg: #ffffff;
+  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.09);
+  --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.14);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+  --font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   BANNER SUPERIOR: FICHA DESCRIPTIVA
+   ========================================================================== */
+.top-banner {
+  background: var(--ms-blue-dark);
+  color: #ffffff;
+  text-align: center;
+  padding: 0.35rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.app-header {
+  background: #ffffff;
+  border-bottom: 2px solid #e2e8f0;
+  padding: 0.75rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.word-icon-badge {
+  background: var(--ms-blue);
+  color: #ffffff;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1.6rem;
+  box-shadow: 0 4px 10px rgba(24, 90, 189, 0.35);
+}
+
+.title-group h1 {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.title-group h1 span.word-highlight {
+  color: var(--ms-blue);
+}
+
+.title-group p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   BOTONES
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.95rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background: var(--ms-blue);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(24, 90, 189, 0.3);
+}
+
+.btn-primary:hover {
+  background: var(--ms-blue-dark);
+}
+
+.btn-secondary {
+  background: #ffffff;
+  color: var(--text-primary);
+  border-color: #cbd5e1;
+}
+
+.btn-secondary:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--ms-blue);
+  color: var(--ms-blue);
+}
+
+.btn-outline:hover {
+  background: var(--ms-blue-subtle);
+}
+
+.btn-whatsapp {
+  background: #25d366;
+  color: #ffffff !important;
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(37, 211, 102, 0.35);
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btn-whatsapp:hover {
+  background: #1eb956;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(37, 211, 102, 0.45);
+}
+
+.creator-tag {
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  font-weight: 700;
+  border: 1px solid #bae6fd;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* ==========================================================================
+   BARRA DE ESTADÍSTICAS Y MODOS
+   ========================================================================== */
+.stats-bar {
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0.6rem 1.25rem;
+}
+
+.stats-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.mode-selector {
+  display: flex;
+  background: #f1f5f9;
+  padding: 0.25rem;
+  border-radius: var(--radius-md);
+  gap: 0.25rem;
+}
+
+.mode-btn {
+  padding: 0.4rem 0.85rem;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  font-size: 0.825rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mode-btn.active {
+  background: #ffffff;
+  color: var(--ms-blue);
+  box-shadow: var(--shadow-sm);
+}
+
+.stats-badges {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 0.35rem 0.8rem;
+  border-radius: var(--radius-full);
+  font-size: 0.825rem;
+  font-weight: 700;
+  color: var(--ms-blue-dark);
+}
+
+.stat-item.score-badge {
+  background: #dcfce7;
+  border-color: #bbf7d0;
+  color: #15803d;
+}
+
+.stat-item.streak-badge {
+  background: #fef3c7;
+  border-color: #fde68a;
+  color: #b45309;
+}
+
+/* ==========================================================================
+   LAYOUT PRINCIPAL
+   ========================================================================== */
+.main-layout {
+  max-width: 1440px;
+  margin: 1rem auto;
+  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 1.25rem;
+  flex: 1;
+  width: 100%;
+}
+
+@media (max-width: 1100px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   SIMULADOR DE WORD 2021 (CANVAS INTERACTIVO SEGÚN LA FICHA)
+   ========================================================================== */
+.mockup-wrapper {
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  border: 1px solid #cbd5e1;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+}
+
+.mockup-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8fafc;
+  padding: 0.5rem 0.85rem;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.device-hint {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 600;
+}
+
+.zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.zoom-btn {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.zoom-btn:hover {
+  background: #f1f5f9;
+}
+
+.interactive-stage-container {
+  position: relative;
+  width: 100%;
+  overflow: auto;
+  background: #e2e8f0;
+  display: flex;
+  justify-content: center;
+  padding: 1.25rem 1rem;
+  min-height: 520px;
+  touch-action: pan-x pan-y;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.word-mockup-stage {
+  position: relative;
+  width: 100%;
+  max-width: 980px;
+  min-width: 760px;
+  aspect-ratio: 16 / 10;
+  background: #ffffff;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.18);
+  border-radius: 6px;
+  overflow: visible;
+  user-select: none;
+  transform-origin: top center;
+  transition: transform 0.2s ease;
+}
+
+/* ==========================================================================
+   MAQUETA EXACTA DE WORD (SEGÚN DESIGNER.PNG)
+   ========================================================================== */
+.mock-word-app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #f3f3f3;
+  font-size: 11px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* 1. Barra de Título (Fondo azul oscuro #0f3e82) */
+.mock-titlebar {
+  height: 7.5%;
+  background: var(--ms-blue-dark);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.mock-quick-access {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 6px;
+  border-radius: 3px;
+  border: 1px dashed rgba(22, 163, 74, 0.6);
+}
+
+.mock-qa-icons {
+  display: flex;
+  gap: 6px;
+  color: #ffffff;
+  font-size: 11px;
+}
+
+.mock-doc-title {
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+}
+
+.mock-title-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+}
+
+.mock-search-bubble {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  padding: 2px 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #e2e8f0;
+  font-size: 10.5px;
+}
+
+/* 11. Botones de Control de Ventana (Enmarcados en rojo) */
+.mock-window-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  font-size: 12px;
+  border: 1.5px solid #dc2626;
+  background: rgba(220, 38, 38, 0.15);
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+.mock-win-btn {
+  padding: 1px 4px;
+  cursor: default;
+  font-weight: bold;
+}
+
+/* 3. Cinta de Opciones (Pestañas) */
+.mock-tabs-bar {
+  height: 5.5%;
+  background: var(--ms-blue-dark);
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+  border-bottom: 1px solid #cbd5e1;
+  gap: 2px;
+}
+
+.mock-tab-file {
+  background: #1e3a8a;
+  color: #ffffff;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 2px;
+  margin-right: 2px;
+}
+
+.mock-tab-item {
+  padding: 3px 8px;
+  color: #cbd5e1;
+  font-weight: 600;
+}
+
+.mock-tab-item.active {
+  background: #ffffff;
+  color: var(--ms-blue-dark);
+  font-weight: 700;
+  border-radius: 3px 3px 0 0;
+}
+
+/* 4. Grupos de Comandos (Enmarcado en Naranja según Ficha) */
+.mock-ribbon {
+  height: 13.5%;
+  background: #ffffff;
+  border-bottom: 1px solid #d2d0ce;
+  border-left: 2px solid #ea580c;
+  border-right: 2px solid #ea580c;
+  display: flex;
+  align-items: stretch;
+  padding: 3px 6px;
+  gap: 6px;
+}
+
+.mock-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid #e2e8f0;
+  padding-right: 6px;
+  position: relative;
+}
+
+.mock-group-content {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.mock-group-title {
+  text-align: center;
+  font-size: 9.5px;
+  color: #64748b;
+  margin-top: 1px;
+}
+
+.mock-dialog-launcher {
+  position: absolute;
+  bottom: 1px;
+  right: 2px;
+  font-size: 8px;
+  color: #94a3b8;
+  font-weight: bold;
+}
+
+.mock-btn-tool {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 2px;
+  padding: 1px 4px;
+  font-size: 9.5px;
+  font-weight: 600;
+}
+
+/* 6. Regla Horizontal y Vertical */
+.mock-ruler-horizontal {
+  height: 4%;
+  background: #fafaf9;
+  border-bottom: 1px solid #cbd5e1;
+  display: flex;
+  align-items: center;
+  padding: 0 14%;
+  position: relative;
+}
+
+.mock-ruler-ticks {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 8.5px;
+  color: #64748b;
+  border-top: 1px solid #94a3b8;
+}
+
+/* 5. Área de Trabajo (Documento con borde naranja/dorado) */
+.mock-doc-workspace {
+  flex: 1;
+  background: #e2e8f0;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.mock-ruler-vertical {
+  width: 24px;
+  background: #fafaf9;
+  border-right: 1px solid #cbd5e1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 8px;
+  color: #64748b;
+  padding: 10px 0;
+}
+
+.mock-page-canvas {
+  width: 68%;
+  height: 94%;
+  margin: 10px auto 0 auto;
+  background: #ffffff;
+  border: 2px solid #f59e0b;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+  padding: 24px 30px;
+  position: relative;
+}
+
+.mock-cursor-caret {
+  display: inline-block;
+  width: 2px;
+  height: 18px;
+  background: #000000;
+  animation: blinkCursor 0.9s infinite;
+  vertical-align: middle;
+}
+
+@keyframes blinkCursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* 7. Barras de Desplazamiento */
+.mock-scrollbar {
+  width: 14px;
+  background: #f1f5f9;
+  border-left: 1px solid #cbd5e1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 0;
+}
+
+.mock-scroll-thumb {
+  width: 8px;
+  height: 60px;
+  background: #94a3b8;
+  border-radius: 4px;
+}
+
+/* 8, 9, 10. Barra de Estado, Vistas y Zoom */
+.mock-statusbar {
+  height: 6.5%;
+  background: #ffffff;
+  border-top: 1px solid #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  color: #475569;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.mock-status-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mock-status-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mock-view-buttons {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+}
+
+.mock-zoom-slider {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mock-slider-bar {
+  width: 50px;
+  height: 3px;
+  background: #cbd5e1;
+  border-radius: 2px;
+  position: relative;
+}
+
+.mock-slider-bar::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--ms-blue);
+  border-radius: 50%;
+  top: -1.5px;
+  left: 50%;
+}
+
+/* ==========================================================================
+   PUNTOS OBJETIVO Y MARCADORES NUMERADOS (1 AL 11)
+   ========================================================================== */
+.drop-zone-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.target-zone {
+  position: absolute;
+  border: 2px dashed rgba(24, 90, 189, 0.4);
+  background: rgba(24, 90, 189, 0.03);
+  border-radius: 4px;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  pointer-events: auto;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.target-zone:hover {
+  background: rgba(24, 90, 189, 0.12);
+  border-color: var(--ms-blue);
+  border-style: solid;
+  box-shadow: inset 0 0 8px rgba(24, 90, 189, 0.15);
+}
+
+.target-zone.matched-zone {
+  border-color: rgba(21, 128, 61, 0.5);
+  background: rgba(21, 128, 61, 0.06);
+}
+
+.target-zone.drag-over {
+  background: rgba(24, 90, 189, 0.25);
+  border-color: var(--ms-blue-accent);
+  border-style: solid;
+  box-shadow: 0 0 12px rgba(24, 90, 189, 0.4);
+}
+
+.target-zone.hint-active {
+  animation: pulseHint 1s infinite alternate;
+  border-color: #f59e0b !important;
+  background: rgba(245, 158, 11, 0.3) !important;
+  z-index: 40;
+}
+
+@keyframes pulseHint {
+  0% { box-shadow: 0 0 4px #f59e0b; border-color: #f59e0b; }
+  100% { box-shadow: 0 0 16px #f59e0b; border-color: #d97706; }
+}
+
+/* Pines numerados circulares exactamente como en la Ficha Técnica */
+.target-pin {
+  position: absolute;
+  color: #ffffff;
+  min-width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 12px;
+  border: 2px solid #ffffff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+  pointer-events: auto;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 25;
+}
+
+/* Hover en números: elevación al frente y cambio de color con brillo */
+.target-pin:hover {
+  filter: brightness(1.25) saturate(1.25);
+  box-shadow: 0 0 0 3.5px #ffffff, 0 6px 18px rgba(0, 0, 0, 0.5);
+  z-index: 1000 !important; /* Se sobrepone inmediatamente al frente */
+}
+
+/* Insignia cuando ya está acertada o en modo estudio */
+.target-pin.matched {
+  width: auto;
+  max-width: 220px;
+  height: auto;
+  min-height: 24px;
+  padding: 3px 9px;
+  border-radius: var(--radius-sm);
+  font-size: 10.5px;
+  line-height: 1.25;
+  font-weight: 700;
+  text-align: center;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: break-word;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  z-index: 30;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animación de cambio de color dinámico y sobreposición inmediata al colocar el cursor */
+.target-pin.matched:hover {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
+  box-shadow: 0 0 0 3.5px #f59e0b, 0 8px 25px rgba(0, 0, 0, 0.5) !important;
+  z-index: 1000 !important; /* Garantiza que se sobreponga al 100% sobre cualquier otra insignia */
+  cursor: pointer;
+  filter: none !important;
+}
+
+.target-pin.matched:hover * {
+  color: #000000 !important;
+}
+
+/* Animación llamativa cuando se SELECCIONA o TOCA un nombre en modo estudio */
+.target-pin.selected-study-active {
+  color: #000000 !important;
+  background-color: #fef08a !important; /* Fondo amarillo dorado brillante de alto contraste */
+  border-color: #000000 !important;
+  font-weight: 800 !important;
+  z-index: 2500 !important; /* Se sobrepone en el plano más alto absoluto */
+  animation: selectedBadgeBlackText 1.1s infinite alternate ease-in-out !important;
+}
+
+.target-pin.selected-study-active * {
+  color: #000000 !important;
+}
+
+@keyframes selectedBadgeBlackText {
+  0% {
+    background-color: #fef08a; /* Amarillo radiante */
+    color: #000000;
+    box-shadow: 0 0 0 3px #ffffff, 0 0 15px rgba(254, 240, 138, 0.95), 0 6px 20px rgba(0, 0, 0, 0.4);
+  }
+  100% {
+    background-color: #ffffff; /* Blanco luminoso */
+    color: #000000;
+    box-shadow: 0 0 0 4.5px #f59e0b, 0 0 30px rgba(245, 158, 11, 0.95), 0 10px 35px rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* ==========================================================================
+   PANEL LATERAL: BANCO DE ETIQUETAS Y FICHA INFORMATIVA
+   ========================================================================== */
+.sidebar-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cards-container-panel {
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  border: 1px solid #cbd5e1;
+  box-shadow: var(--shadow-md);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.5rem;
+}
+
+.panel-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.badge-count {
+  background: var(--ms-blue-subtle);
+  color: var(--ms-blue-dark);
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.drag-instructions {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  background: #f8fafc;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--ms-blue-accent);
+  line-height: 1.4;
+}
+
+.tags-pool {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 480px;
+  overflow-y: auto;
+  padding: 0.25rem 0.1rem;
+}
+
+/* Tarjeta / Ficha Arrastrable con Número de Ficha Técnica */
+.draggable-tag {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  cursor: grab;
+  user-select: none;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+  touch-action: none;
+  min-height: 46px;
+}
+
+.draggable-tag:hover {
+  border-color: var(--ms-blue);
+  background: var(--ms-blue-subtle);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.draggable-tag:active {
+  cursor: grabbing;
+}
+
+.draggable-tag.dragging {
+  opacity: 0.4;
+  transform: scale(0.95);
+  border-color: var(--ms-blue);
+}
+
+.draggable-tag.selected-click {
+  border-color: var(--ms-blue);
+  background: #dbeafe;
+  box-shadow: 0 0 0 2px var(--ms-blue);
+}
+
+.draggable-tag.matched-hidden {
+  display: none;
+}
+
+.tag-number-badge {
+  color: #ffffff;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.tag-name {
+  flex: 1;
+  white-space: normal;
+  line-height: 1.35;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+.tag-drag-handle {
+  color: #94a3b8;
+  font-size: 0.85rem;
+  cursor: grab;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   PANEL DE DESAFÍO POR CONCEPTOS
+   ========================================================================== */
+.concept-quote-box {
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  padding: 0.85rem;
+  margin-top: 0.5rem;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.concept-call-to-action {
+  animation: subtlePulse 2s infinite ease-in-out;
+}
+
+@keyframes subtlePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.01); background: #e0f2fe; }
+}
+
+/* ==========================================================================
+   PANEL DE FICHA PEDAGÓGICA (DATOS GENERALES Y DEFINICIONES)
+   ========================================================================== */
+.info-card-panel {
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  border: 1px solid #cbd5e1;
+  box-shadow: var(--shadow-md);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.info-header {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--ms-blue-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.info-content {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  min-height: 80px;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+.info-content.highlight {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   SECCIONES INFERIORES: CRÉDITOS UNIFICADOS, IMPORTANCIA Y COMPETENCIAS
+   ========================================================================== */
+.credits-single-card {
+  max-width: 1440px;
+  margin: 0 auto 1.25rem auto;
+  padding: 0.85rem 1.5rem;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.credits-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.credits-icon {
+  font-size: 1.5rem;
+}
+
+.credits-info small {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.credits-info strong {
+  font-size: 0.92rem;
+  color: #0f172a;
+}
+
+.credits-divider {
+  width: 1px;
+  height: 36px;
+  background: #e2e8f0;
+}
+
+@media (max-width: 768px) {
+  .credits-divider {
+    display: none;
+  }
+  .credits-single-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+    gap: 0.85rem;
+  }
+}
+
+.whatsapp-badge-link {
+  color: #15803d !important;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.whatsapp-badge-link:hover {
+  color: #166534 !important;
+}
+
+.chat-direct-tag {
+  background: #25d366;
+  color: #ffffff !important;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  box-shadow: 0 2px 6px rgba(37, 211, 102, 0.4);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  text-decoration: none;
+}
+
+.whatsapp-badge-link:hover .chat-direct-tag {
+  background: #1eb956;
+  transform: scale(1.05);
+}
+
+.infographic-footer-section {
+  max-width: 1440px;
+  margin: 0 auto 1.5rem auto;
+  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+@media (max-width: 860px) {
+  .infographic-footer-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+.footer-info-card {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  display: flex;
+  gap: 0.85rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.footer-card-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.footer-card-content h3 {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--ms-blue-dark);
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.footer-card-content p {
+  font-size: 0.825rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+/* ==========================================================================
+   MODALES Y DIÁLOGOS
+   ========================================================================== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.modal-backdrop.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-window {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  max-width: 680px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  transform: scale(0.9);
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-backdrop.show .modal-window {
+  transform: scale(1);
+}
+
+.modal-header {
+  background: linear-gradient(135deg, var(--ms-blue-dark), var(--ms-blue));
+  color: #ffffff;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.modal-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-footer {
+  padding: 1rem 1.5rem;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+
+/* ==========================================================================
+   DIPLOMA / CERTIFICADO IMPRIMIBLE
+   ========================================================================== */
+.certificate-preview {
+  border: 8px double var(--ms-blue-dark);
+  padding: 1.5rem;
+  text-align: center;
+  background: #ffffff;
+  position: relative;
+}
+
+.cert-header {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: var(--ms-blue-dark);
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.cert-sub {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.cert-name-locked {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--ms-blue-dark);
+  border-bottom: 2.5px solid var(--ms-blue);
+  padding: 0.4rem 1.25rem;
+  margin: 0.5rem auto;
+  display: inline-block;
+  background: #f8fafc;
+  border-radius: 4px 4px 0 0;
+  letter-spacing: 0.02em;
+  user-select: none;
+}
+
+.cert-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin: 1rem 0;
+  background: var(--ms-blue-subtle);
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+}
+
+@media (max-width: 600px) {
+  .cert-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.cert-stat-box span {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.cert-stat-box strong {
+  font-size: 1.05rem;
+  color: var(--ms-blue-dark);
+}
+
+/* ==========================================================================
+   SELECTOR DE DIFICULTAD Y VIDAS
+   ========================================================================== */
+.difficulty-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.65rem;
+}
+
+@media (max-width: 540px) {
+  .difficulty-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.difficulty-card {
+  border: 2px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  padding: 0.65rem 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #ffffff;
+  display: block;
+  position: relative;
+  text-align: center;
+}
+
+.difficulty-card input[type="radio"] {
+  display: none;
+}
+
+.difficulty-card:hover {
+  border-color: #cbd5e1;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.difficulty-card.selected {
+  border-color: var(--ms-blue);
+  background: #eff6ff;
+  box-shadow: 0 0 0 2px rgba(24, 90, 189, 0.2);
+}
+
+.diff-title {
+  font-weight: 900;
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+
+.diff-lives-tag {
+  background: #fdf2f8;
+  color: #be185d;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 800;
+  font-size: 0.8rem;
+  margin: 3px 0;
+  display: inline-block;
+}
+
+.diff-mode-row {
+  font-size: 0.74rem;
+  padding: 4px 6px;
+  border-radius: 4px;
+  margin-top: 3px;
+  text-align: left;
+  line-height: 1.3;
+}
+
+.diff-mode-desafio {
+  color: #1e40af;
+  background: #eff6ff;
+  border-left: 2.5px solid #2563eb;
+}
+
+.diff-mode-timer {
+  color: #0369a1;
+  background: #f0f9ff;
+  border-left: 2.5px solid #0284c7;
+}
+
+.diff-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.75rem;
+  color: #475569;
+}
+
+.lives-badge {
+  background: #fdf2f8 !important;
+  color: #be185d !important;
+  border-color: #fbcfe8 !important;
+  letter-spacing: 2px;
+}
+
+.student-name-badge {
+  background: #eff6ff !important;
+  color: #1e40af !important;
+  border-color: #bfdbfe !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.student-name-badge:hover {
+  background: #dbeafe !important;
+  border-color: #93c5fd !important;
+}
+
+/* ==========================================================================
+   CANVAS DE CONFETI
+   ========================================================================== */
+#confetti-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 300;
+}
+
+/* ==========================================================================
+   RESPONSIVIDAD (MÓVILES, TABLETS Y DISPOSITIVOS PEQUEÑOS)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .stats-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .mode-selector {
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .stats-badges {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .main-layout {
+    padding: 0 0.5rem;
+    margin: 0.5rem auto;
+  }
+
+  .cards-container-panel {
+    order: -1;
+  }
+
+  .tags-pool {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    max-height: 260px;
+  }
+
+  .draggable-tag {
+    font-size: 0.8rem;
+    padding: 0.5rem 0.6rem;
+  }
+
+  .word-mockup-stage {
+    min-width: 660px;
+  }
+}
+
+/* Animaciones de error */
+.shake-error {
+  animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-2px, 0, 0); }
+  20%, 80% { transform: translate3d(4px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+  40%, 60% { transform: translate3d(6px, 0, 0); }
+}
+
+/* Restricción de Impresión: Deshabilitada según requerimiento */
+@media print {
+  body {
+    display: none !important;
+  }
+}

@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>PARTES DE LA INTERFAZ DE MICROSOFT WORD</title>
+  <meta name="description" content="Aplicación web interactiva y pedagógica para aprender las partes de la interfaz de Microsoft Word. IESTP San Miguel - Ing. Brayan M. Olivares Lozano.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23185ABD'/><text x='50%' y='68%' font-size='55' font-weight='900' fill='white' text-anchor='middle'>W</text></svg>">
+</head>
+<body>
+
+  <!-- Canvas para Confeti y Celebración -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- BANNER SUPERIOR LIMPIO -->
+  <div class="top-banner">PARTES DE LA INTERFAZ DE MICROSOFT WORD</div>
+
+  <!-- CABECERA PRINCIPAL -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="logo-area">
+        <div class="word-icon-badge">W</div>
+        <div class="title-group">
+          <h1>PARTES DE LA INTERFAZ DE <span class="word-highlight">MICROSOFT WORD</span></h1>
+          <p>Selecciona y arrastra los nombres a su ubicación correspondiente</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="btn-sound" class="btn btn-secondary" title="Activar/Desactivar Sonido">
+          <span id="sound-icon">🔊</span> Sonido
+        </button>
+        <button id="btn-view-sheet" class="btn btn-outline" title="Ver Infografía de Referencia">
+          🖼️ Ver Ficha de Referencia
+        </button>
+        <button id="btn-reset" class="btn btn-primary" title="Reiniciar y Barajar Aleatoriamente">
+          🔄 Barajar / Reiniciar
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- BARRA DE ESTADÍSTICAS Y MODOS -->
+  <section class="stats-bar">
+    <div class="stats-container">
+      
+      <!-- Selector de Modo de Aprendizaje -->
+      <div class="mode-selector">
+        <button class="mode-btn active" data-mode="drag">🎯 Desafío (Identificar Conceptos)</button>
+        <button class="mode-btn" data-mode="study">📚 Modo Estudio (Explorar)</button>
+        <button class="mode-btn" data-mode="timer">⏱️ Contrarreloj (Arrastrar Fichas)</button>
+      </div>
+
+      <!-- Métricas en Vivo -->
+      <div class="stats-badges">
+        <div class="stat-item student-name-badge" id="student-display-badge" title="Clic para editar tu nombre y nivel">
+          <span>👤</span>
+          <strong id="stat-student-name">Estudiante</strong>
+          <span style="font-size: 0.75rem; opacity: 0.7;">✏️</span>
+        </div>
+        <div class="stat-item" id="stat-level-badge" style="cursor: pointer;" title="Nivel de dificultad activo (Clic para cambiar)">
+          <span>Nivel:</span>
+          <strong id="stat-level-text" style="color: #d97706;">Normal</strong>
+        </div>
+        <div class="stat-item lives-badge" id="stat-lives-box" title="Vidas restantes">
+          <span>Vidas:</span>
+          <strong id="stat-lives-display">❤️❤️</strong>
+        </div>
+        <div class="stat-item">
+          <span>Progreso:</span>
+          <strong id="stat-progress">0 / 13</strong>
+        </div>
+        <div class="stat-item score-badge">
+          <span>Puntos:</span>
+          <strong id="stat-score">0</strong>
+        </div>
+        <div class="stat-item streak-badge">
+          <span>Racha:</span>
+          <strong id="stat-streak">🔥 0</strong>
+        </div>
+        <div class="stat-item" id="timer-box" style="display: none; background: #fee2e2; color: #991b1b; border-color: #fca5a5;">
+          <span>Tiempo:</span>
+          <strong id="stat-timer">60s</strong>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- LAYOUT PRINCIPAL: SIMULADOR DE LA FICHA + PANEL DE ETIQUETAS -->
+  <main class="main-layout">
+    
+    <!-- CONTENEDOR DEL SIMULADOR VISUAL DE WORD -->
+    <section class="mockup-wrapper">
+      <div class="mockup-toolbar">
+        <div class="device-hint">
+          <span>💡</span>
+          <span id="interaction-instructions">Arrastra una ficha a su círculo correspondiente o tócala para seleccionarla y luego toca su ubicación.</span>
+        </div>
+        <div class="zoom-controls">
+          <button class="zoom-btn" id="zoom-out" title="Alejar">-</button>
+          <button class="zoom-btn" id="zoom-reset" title="Restablecer Vista">100%</button>
+          <button class="zoom-btn" id="zoom-in" title="Acercar">+</button>
+        </div>
+      </div>
+
+      <div class="interactive-stage-container" id="stage-viewport">
+        <div class="word-mockup-stage" id="word-stage">
+          
+          <!-- RECREACIÓN EXACTA DE LA INTERFAZ DE MICROSOFT WORD -->
+          <div class="mock-word-app">
+            
+            <!-- 1. Barra de Título (Fondo Azul Marino) -->
+            <div class="mock-titlebar">
+              <!-- 2. Barra de Herramientas de Acceso Rápido -->
+              <div class="mock-quick-access">
+                <div class="mock-qa-icons">
+                  <span title="Guardar">💾</span>
+                  <span title="Deshacer">↩️</span>
+                  <span title="Rehacer">↪️</span>
+                  <span title="Personalizar">▾</span>
+                </div>
+              </div>
+              
+              <!-- Título Central del Documento -->
+              <div class="mock-doc-title">Documento1 - Word</div>
+
+              <!-- Derecha: Iniciar sesión, Búsqueda y Control de Ventana -->
+              <div class="mock-title-right">
+                <span style="font-size: 10px; opacity: 0.9;">Inic. ses.</span>
+                <div class="mock-search-bubble">
+                  <span>💡</span>
+                  <span>¿Qué desea hacer?</span>
+                </div>
+                
+                <!-- 11. Botones de Control de Ventana (Enmarcados en Rojo) -->
+                <div class="mock-window-controls">
+                  <span class="mock-win-btn" title="Minimizar">—</span>
+                  <span class="mock-win-btn" title="Maximizar/Restaurar">🗖</span>
+                  <span class="mock-win-btn" title="Cerrar">✕</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Cinta de Opciones (Pestañas) -->
+            <div class="mock-tabs-bar">
+              <span class="mock-tab-file">Archivo</span>
+              <span class="mock-tab-item active">Inicio</span>
+              <span class="mock-tab-item">Insertar</span>
+              <span class="mock-tab-item">Diseño</span>
+              <span class="mock-tab-item">Referencias</span>
+              <span class="mock-tab-item">Correspondencia</span>
+              <span class="mock-tab-item">Revisar</span>
+              <span class="mock-tab-item">Vista</span>
+              <span class="mock-tab-item">Ayuda</span>
+            </div>
+
+            <!-- 4. Grupos de Comandos (Enmarcado en Naranja) -->
+            <div class="mock-ribbon">
+              <!-- Portapapeles -->
+              <div class="mock-group">
+                <div class="mock-group-content">
+                  <button class="mock-btn-tool" style="padding: 4px 6px;">📋 Pegar</button>
+                  <div style="display: flex; flex-direction: column; gap: 2px;">
+                    <span class="mock-btn-tool">✂️ Cortar</span>
+                    <span class="mock-btn-tool">📄 Copiar</span>
+                  </div>
+                </div>
+                <div class="mock-group-title">Portapapeles</div>
+              </div>
+
+              <!-- Fuente -->
+              <div class="mock-group">
+                <div class="mock-group-content" style="flex-direction: column; gap: 3px;">
+                  <div style="display: flex; gap: 4px; align-items: center;">
+                    <span class="mock-btn-tool" style="font-size: 9px; font-weight: bold;">Calibri (Cuerpo) ▾</span>
+                    <span class="mock-btn-tool">11 ▾</span>
+                    <span class="mock-btn-tool">A▲</span>
+                    <span class="mock-btn-tool">A▼</span>
+                    <span class="mock-btn-tool">Aa▾</span>
+                  </div>
+                  <div style="display: flex; gap: 3px;">
+                    <span class="mock-btn-tool"><b>N</b></span>
+                    <span class="mock-btn-tool"><i>K</i></span>
+                    <span class="mock-btn-tool"><u>S</u></span>
+                    <span class="mock-btn-tool"><s>abc</s></span>
+                    <span class="mock-btn-tool">x₂</span>
+                    <span class="mock-btn-tool">x²</span>
+                    <span class="mock-btn-tool" style="color: #c2410c;">🖍️▾</span>
+                    <span class="mock-btn-tool" style="color: #dc2626;"><b>A▾</b></span>
+                  </div>
+                </div>
+                <div class="mock-group-title">Fuente</div>
+                <span class="mock-dialog-launcher">↗</span>
+              </div>
+
+              <!-- Párrafo -->
+              <div class="mock-group">
+                <div class="mock-group-content" style="flex-direction: column; gap: 3px;">
+                  <div style="display: flex; gap: 3px;">
+                    <span class="mock-btn-tool">•≡▾</span>
+                    <span class="mock-btn-tool">1.≡▾</span>
+                    <span class="mock-btn-tool">⬅️📑</span>
+                    <span class="mock-btn-tool">📑➡️</span>
+                    <span class="mock-btn-tool">¶</span>
+                  </div>
+                  <div style="display: flex; gap: 3px;">
+                    <span class="mock-btn-tool">≡</span>
+                    <span class="mock-btn-tool">☷</span>
+                    <span class="mock-btn-tool">≣</span>
+                    <span class="mock-btn-tool">▤</span>
+                    <span class="mock-btn-tool">↕▾</span>
+                    <span class="mock-btn-tool">田▾</span>
+                  </div>
+                </div>
+                <div class="mock-group-title">Párrafo</div>
+                <span class="mock-dialog-launcher">↗</span>
+              </div>
+
+              <!-- Estilos -->
+              <div class="mock-group">
+                <div class="mock-group-content" style="gap: 4px;">
+                  <span class="mock-btn-tool" style="border-top: 2px solid var(--ms-blue);">1 Normal</span>
+                  <span class="mock-btn-tool">1 Sin espacio</span>
+                  <span class="mock-btn-tool" style="color: var(--ms-blue); font-weight: bold;">Título 1</span>
+                </div>
+                <div class="mock-group-title">Estilos</div>
+              </div>
+
+              <!-- Edición -->
+              <div class="mock-group" style="border-right: none; flex: 1;">
+                <div class="mock-group-content" style="flex-direction: column; gap: 1px; font-size: 8.5px;">
+                  <span>🔍 Buscar ▾</span>
+                  <span>🔄 Reemplazar</span>
+                  <span>↖️ Seleccionar ▾</span>
+                </div>
+                <div class="mock-group-title">Edición</div>
+              </div>
+            </div>
+
+            <!-- 6. Regla Horizontal -->
+            <div class="mock-ruler-horizontal">
+              <div class="mock-ruler-ticks">
+                <span>|···1···|···2···|···3···|···4···|···5···|···6···|···7···|···8···|···9···|···10···|···11···|···12···|···13···|···14···|···15···|···16···|···17···|</span>
+              </div>
+            </div>
+
+            <!-- 5. Área de Trabajo (Hoja en Blanco con Borde Naranja/Dorado) -->
+            <div class="mock-doc-workspace">
+              <!-- Regla Vertical -->
+              <div class="mock-ruler-vertical">
+                <span>1</span>
+                <span>2</span>
+                <span>3</span>
+                <span>4</span>
+                <span>5</span>
+              </div>
+
+              <!-- Página en Blanco -->
+              <div class="mock-page-canvas">
+                <!-- 12. Cursor / Punto de inserción parpadeante libre de obstáculos -->
+                <div style="display: inline-flex; align-items: center; gap: 8px;">
+                  <span class="mock-cursor-caret" title="12. Punto de inserción (Cursor)"></span>
+                  <span style="font-size: 9px; color: #94a3b8; font-style: italic; user-select: none;">Escribir texto aquí...</span>
+                </div>
+              </div>
+
+              <!-- 7. Barras de Desplazamiento Vertical -->
+              <div class="mock-scrollbar">
+                <span>▲</span>
+                <div class="mock-scroll-thumb"></div>
+                <span>▼</span>
+              </div>
+            </div>
+
+            <!-- 8, 9, 10. Barra de Estado, Vistas y Zoom -->
+            <div class="mock-statusbar">
+              <div class="mock-status-left">
+                <span>Página 1 de 1</span>
+                <span>0 palabras</span>
+                <span>Español (México)</span>
+                <span>📖</span>
+              </div>
+              <div class="mock-status-right">
+                <!-- 9. Botones de Vista -->
+                <div class="mock-view-buttons">
+                  <span title="Modo lectura">📖</span>
+                  <span title="Diseño de impresión" style="color: var(--ms-blue); font-weight: bold;">📄</span>
+                  <span title="Diseño web">🌐</span>
+                </div>
+                <!-- 10. Control de Zoom -->
+                <div class="mock-zoom-slider">
+                  <span>－</span>
+                  <div class="mock-slider-bar"></div>
+                  <span>＋</span>
+                  <span style="font-weight: 700;">100%</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- CAPA DE ZONAS OBJETIVO Y MARCADORES NUMERADOS (1 AL 13) -->
+          <div class="drop-zone-overlay" id="drop-overlay"></div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PANEL LATERAL: DESAFÍO POR CONCEPTOS, BANCO DE ETIQUETAS Y GUÍA PEDAGÓGICA -->
+    <aside class="sidebar-panel">
+      
+      <!-- 1. Panel Exclusivo para Modo Desafío (Preguntas por Concepto) -->
+      <div class="cards-container-panel" id="concept-challenge-panel" style="display: block;">
+        <div class="panel-header" style="background: linear-gradient(135deg, #1e40af, #2563eb);">
+          <div class="panel-title" style="color: white;">
+            <span>📖 Concepto a Identificar</span>
+          </div>
+          <span class="badge-count" id="concept-question-counter" style="background: white; color: #1e40af; font-weight: 800;">Pregunta 1 de 13</span>
+        </div>
+        
+        <div class="concept-body" style="padding: 1rem 0.85rem; background: #ffffff;">
+          <div style="font-size: 0.8rem; font-weight: 800; color: #2563eb; text-transform: uppercase; margin-bottom: 0.35rem; letter-spacing: 0.05em;">
+            🎯 Lee la descripción / función:
+          </div>
+          
+          <div class="concept-quote-box" id="concept-quote-box">
+            <div id="concept-quote-text" style="font-size: 0.95rem; font-weight: 600; color: #0f172a; line-height: 1.45;">
+              Cargando concepto...
+            </div>
+            <div id="concept-function-text" style="margin-top: 0.6rem; font-size: 0.82rem; color: #475569; background: #f8fafc; padding: 0.4rem 0.6rem; border-left: 3px solid #2563eb; border-radius: 2px;">
+              <strong>Función:</strong> ...
+            </div>
+          </div>
+
+          <div class="concept-call-to-action" style="margin-top: 1rem; padding: 0.65rem 0.75rem; background: #eff6ff; border: 1.5px dashed #93c5fd; border-radius: 6px; font-size: 0.85rem; color: #1e40af;">
+            👉 <strong>¿Dónde está ubicada?</strong><br>
+            Haz clic en el <strong>número correspondiente (1 al 13)</strong> en la maqueta de Word.
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Panel Exclusivo para Modo Contrarreloj (Banco de Fichas Arrastrables) -->
+      <div class="cards-container-panel" id="tags-container-panel" style="display: none;">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span>🏷️ 13 Partes por Ubicar</span>
+          </div>
+          <span class="badge-count" id="remaining-count">13 pendientes</span>
+        </div>
+        
+        <div class="drag-instructions">
+          👆 <strong>Contrarreloj:</strong> Arrastra la ficha al círculo de la maqueta o haz clic en la ficha y luego en su ubicación.
+        </div>
+
+        <div class="tags-pool" id="tags-pool">
+          <!-- Las etiquetas aleatorias se generan dinámicamente mediante JS -->
+        </div>
+      </div>
+
+      <!-- 3. Ficha Técnica / Información Pedagógica Dinámica -->
+      <div class="info-card-panel" id="info-card-panel">
+        <div class="info-header">
+          <span>📘 Ficha Técnica Pedagógica</span>
+        </div>
+        <div class="info-content" id="pedagogical-info">
+          Selecciona o arrastra una parte para ver su descripción oficial, función principal y ubicación detallada.
+        </div>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <!-- CRÉDITOS INSTITUCIONALES (UNA SOLA VEZ EN LA PÁGINA PRINCIPAL) -->
+  <section class="credits-single-card">
+    <div class="credits-item">
+      <span class="credits-icon">🏛️</span>
+      <div class="credits-info">
+        <small>Instituto:</small>
+        <strong>IESTP SAN MIGUEL</strong>
+      </div>
+    </div>
+    <div class="credits-divider"></div>
+    <div class="credits-item">
+      <span class="credits-icon">👨‍🏫</span>
+      <div class="credits-info">
+        <small>Creado por:</small>
+        <strong>Ing. Brayan M. Olivares Lozano</strong>
+      </div>
+    </div>
+    <div class="credits-divider"></div>
+    <div class="credits-item">
+      <span class="credits-icon" style="display: flex; align-items: center;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="28" height="28" fill="#25D366"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+      </span>
+      <div class="credits-info">
+        <small>WhatsApp de Contacto:</small>
+        <a href="https://wa.me/51931990036?text=Hola%20Ing.%20Brayan,%20le%20escribo%20desde%20la%20aplicaci%C3%B3n%20de%20Word" target="_blank" rel="noopener noreferrer" class="whatsapp-badge-link" title="Abrir chat directo en WhatsApp">
+          <strong>+51 931 990 036</strong>
+          <span class="chat-direct-tag">💬 Chatear</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN INFERIOR: IMPORTANCIA Y COMPETENCIAS (DISEÑO LIMPIO Y ELEGANTE) -->
+  <section class="infographic-footer-section">
+    
+    <div class="footer-info-card">
+      <div class="footer-card-icon">📘</div>
+      <div class="footer-card-content">
+        <h3>Importancia de Microsoft Word</h3>
+        <p>
+          Microsoft Word es una herramienta fundamental para la elaboración de documentos académicos, laborales y personales. Su interfaz organizada permite a los usuarios crear, editar y dar formato a documentos de manera eficiente, facilitando la comunicación escrita y la gestión de información digital.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-info-card">
+      <div class="footer-card-icon">🏆</div>
+      <div class="footer-card-content">
+        <h3>Competencia a Desarrollar</h3>
+        <p>
+          Reconoce e identifica correctamente las partes de la interfaz de Microsoft Word, utilizando adecuadamente sus herramientas para la creación, edición y presentación de documentos digitales.
+        </p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- MODAL: REGISTRO INICIAL Y SELECCIÓN DE NIVEL -->
+  <div class="modal-backdrop show" id="student-entry-modal">
+    <div class="modal-window" style="max-width: 520px; text-align: center;">
+      <div class="modal-header" style="justify-content: center;">
+        <div class="modal-title" style="color: white; font-size: 1.15rem;">🎓 Registro y Nivel de Dificultad</div>
+      </div>
+      <div class="modal-body" style="padding: 1.5rem;">
+        <form id="student-name-form" onsubmit="event.preventDefault();">
+          
+          <div style="margin-bottom: 1.25rem;">
+            <label style="display: block; font-size: 0.85rem; font-weight: 700; color: #334155; margin-bottom: 0.35rem; text-align: left;">
+              👤 Nombres y Apellidos del Estudiante:
+            </label>
+            <input type="text" id="initial-student-name" placeholder="Ej. Juan Carlos Pérez Gómez" required style="width: 100%; padding: 0.7rem 1rem; border: 2px solid #cbd5e1; border-radius: 6px; font-size: 1rem; text-align: center; font-weight: 700; outline: none; font-family: inherit;">
+          </div>
+
+          <div style="margin-bottom: 1.25rem; text-align: left;">
+            <label style="display: block; font-size: 0.85rem; font-weight: 700; color: #334155; margin-bottom: 0.5rem;">
+              ⚡ Selecciona el Nivel de Dificultad:
+            </label>
+            
+            <div class="difficulty-cards-grid">
+              
+              <!-- Nivel Fácil -->
+              <label class="difficulty-card" data-diff="facil">
+                <input type="radio" name="difficulty" value="facil">
+                <div class="diff-card-content">
+                  <div class="diff-title" style="color: #16a34a;">🟢 Fácil</div>
+                  <div class="diff-lives-tag">❤️ 3 Vidas</div>
+                  <div class="diff-mode-row diff-mode-desafio">
+                    🎯 <strong>Desafío:</strong> 5 min
+                  </div>
+                  <div class="diff-mode-row diff-mode-timer">
+                    ⏱️ <strong>Contrarreloj:</strong> 90s
+                  </div>
+                </div>
+              </label>
+
+              <!-- Nivel Normal (Por Defecto) -->
+              <label class="difficulty-card selected" data-diff="normal">
+                <input type="radio" name="difficulty" value="normal" checked>
+                <div class="diff-card-content">
+                  <div class="diff-title" style="color: #d97706;">🟡 Normal</div>
+                  <div class="diff-lives-tag">❤️ 2 Vidas</div>
+                  <div class="diff-mode-row diff-mode-desafio">
+                    🎯 <strong>Desafío:</strong> 3 min
+                  </div>
+                  <div class="diff-mode-row diff-mode-timer">
+                    ⏱️ <strong>Contrarreloj:</strong> 60s
+                  </div>
+                </div>
+              </label>
+
+              <!-- Nivel Difícil -->
+              <label class="difficulty-card" data-diff="dificil">
+                <input type="radio" name="difficulty" value="dificil">
+                <div class="diff-card-content">
+                  <div class="diff-title" style="color: #dc2626;">🔴 Difícil</div>
+                  <div class="diff-lives-tag">❤️ 1 Vida</div>
+                  <div class="diff-mode-row diff-mode-desafio">
+                    🎯 <strong>Desafío:</strong> 2 min
+                  </div>
+                  <div class="diff-mode-row diff-mode-timer">
+                    ⏱️ <strong>Contrarreloj:</strong> 30s
+                  </div>
+                </div>
+              </label>
+
+            </div>
+          </div>
+
+          <button type="submit" id="btn-start-app" class="btn btn-primary" style="width: 100%; padding: 0.8rem; font-size: 1rem; font-weight: 800;">
+            🚀 Comenzar Actividad
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: HAS PERDIDO (GAME OVER) -->
+  <div class="modal-backdrop" id="game-over-modal">
+    <div class="modal-window" style="max-width: 480px; text-align: center;">
+      <div class="modal-header" style="justify-content: center; background: #dc2626; color: white;">
+        <div class="modal-title" style="color: white; font-size: 1.15rem;">❌ ¡Has Perdido la Partida!</div>
+      </div>
+      <div class="modal-body" style="padding: 1.5rem;">
+        <div style="font-size: 2.8rem; margin-bottom: 0.3rem;">💔</div>
+        <h3 id="game-over-reason" style="font-size: 1.15rem; color: #dc2626; margin-bottom: 0.5rem;">Te has quedado sin vidas</h3>
+        <p style="font-size: 0.88rem; color: #475569; margin-bottom: 1.25rem;">
+          No te desanimes. Revisa las partes de Microsoft Word e inténtalo nuevamente para superar el desafío.
+        </p>
+
+        <div class="cert-stats-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 1.25rem;">
+          <div class="cert-stat-box">
+            <span>PARTES UBICADAS</span>
+            <strong id="gameover-progress">0 / 13</strong>
+          </div>
+          <div class="cert-stat-box">
+            <span>PUNTUACIÓN</span>
+            <strong id="gameover-score">0 pts</strong>
+          </div>
+          <div class="cert-stat-box">
+            <span>NIVEL</span>
+            <strong id="gameover-level">Normal</strong>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="justify-content: space-between;">
+        <button class="btn btn-secondary" id="btn-change-difficulty">⚡ Cambiar Nivel</button>
+        <button class="btn btn-primary" id="btn-retry-game">🔄 Reintentar Partida</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: CERTIFICADO DE LOGRO (PARA DESAFÍO Y CONTRARRELOJ) -->
+  <div class="modal-backdrop" id="certificate-modal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title" id="cert-modal-title">🏆 ¡Felicitaciones! Certificado Obtenido</div>
+        <button class="btn btn-secondary" id="close-cert-modal" style="padding: 2px 8px; font-size: 1rem;">✕</button>
+      </div>
+      <div class="modal-body">
+        
+        <!-- Vista del Certificado Oficial No Editable -->
+        <div class="certificate-preview" id="certificate-print-area">
+          <div style="font-size: 0.8rem; font-weight: 800; color: #0369a1; margin-bottom: 0.2rem; letter-spacing: 0.05em;">IESTP SAN MIGUEL</div>
+          <div class="cert-header" id="cert-diploma-title">Certificado de Dominio Digital</div>
+          <div class="cert-sub">Se otorga el presente reconocimiento oficial a:</div>
+          
+          <!-- Nombre del estudiante bloqueado (No editable) -->
+          <div class="cert-name-locked" id="cert-student-name-text">Estudiante de Informática</div>
+          
+          <p id="cert-description-text" style="margin-top: 0.8rem; font-size: 0.85rem; color: #374151;">
+            Por haber identificado con éxito las <strong>13 partes fundamentales de la interfaz de Microsoft Word</strong> demostrando comprensión, destreza y dominio del procesador de textos.
+          </p>
+
+          <div class="cert-stats-grid">
+            <div class="cert-stat-box">
+              <span>PUNTUACIÓN</span>
+              <strong id="cert-score">0 pts</strong>
+            </div>
+            <div class="cert-stat-box">
+              <span>PRECISIÓN</span>
+              <strong id="cert-accuracy">100%</strong>
+            </div>
+            <div class="cert-stat-box">
+              <span>TIEMPO EMPLEADO</span>
+              <strong id="cert-time">0s</strong>
+            </div>
+            <div class="cert-stat-box">
+              <span>NIVEL SUPERADO</span>
+              <strong id="cert-level">Normal</strong>
+            </div>
+          </div>
+
+          <div style="margin-top: 1rem; font-size: 0.75rem; color: #475569; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; border-top: 1px dashed #cbd5e1; padding-top: 0.5rem; text-align: left;">
+            <div><strong>Instituto:</strong><br>IESTP SAN MIGUEL</div>
+            <div><strong>Creado por:</strong><br>Ing. Brayan M. Olivares Lozano</div>
+            <div><strong>WhatsApp:</strong><br>+51 931 990 036</div>
+            <div><strong>Fecha:</strong><br><strong id="cert-date">19/08/2026</strong></div>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" id="btn-play-again">🔄 Jugar de Nuevo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: VISOR DE LA FICHA DE REFERENCIA (DESIGNER.PNG) -->
+  <div class="modal-backdrop" id="sheet-modal">
+    <div class="modal-window" style="max-width: 960px;">
+      <div class="modal-header">
+        <div class="modal-title">🖼️ Ficha de Referencia: Microsoft Word</div>
+        <button class="btn btn-secondary" id="close-sheet-modal" style="padding: 2px 8px; font-size: 1rem;">✕</button>
+      </div>
+      <div class="modal-body" style="padding: 0.5rem; text-align: center; background: #0f172a;">
+        <img src="Designer.png" alt="Partes de la Interfaz de Microsoft Word" style="width: 100%; height: auto; border-radius: 4px; display: block;">
+      </div>
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+        <div style="font-size: 0.8rem; color: #64748b; text-align: left;">
+          🏛️ <strong>IESTP SAN MIGUEL</strong> • 👨‍🏫 <strong>Ing. Brayan M. Olivares Lozano</strong> • 💬 <strong>+51 931 990 036</strong>
+        </div>
+        <button class="btn btn-primary" id="btn-sheet-ok">Volver a la Actividad Interactiva</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
