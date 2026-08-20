@@ -477,11 +477,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       pinEl.style.transform = `translate(${transX}, ${transY})`;
 
-      if (isMatched || state.mode === 'study') {
+      if (isMatched) {
         pinEl.innerHTML = `<span><strong>${part.num}</strong>. ${part.nombre}</span>`;
         pinEl.classList.add('matched');
       } else {
         pinEl.textContent = `${part.num}`;
+        pinEl.classList.remove('matched');
       }
 
       // Eventos Drag and Drop y Clic
@@ -615,16 +616,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const part = WORD_PARTS_DATA.find(p => p.id === partId);
     if (!part) return;
 
+    // Limpiar selección previa en todos los pines
+    document.querySelectorAll('.target-pin').forEach(p => {
+      p.classList.remove('selected-study-active');
+      const pPart = WORD_PARTS_DATA.find(item => item.id === p.dataset.partId);
+      if (pPart && !state.matchedParts.has(pPart.id)) {
+        p.textContent = `${pPart.num}`;
+        p.classList.remove('matched');
+      }
+    });
+
+    // Expandir y resaltar exclusivamente el pin tocado
+    const selectedPin = document.querySelector(`.target-pin[data-part-id="${partId}"]`);
+    if (selectedPin) {
+      selectedPin.classList.add('selected-study-active', 'matched');
+      selectedPin.innerHTML = `<span><strong>${part.num}</strong>. ${part.nombre}</span>`;
+    }
+
     const hintHtml = state.mode === 'study' ? `<div style="font-size: 0.8rem; color: #64748b; margin-top: 4px;">💡 <em>Pista: ${part.pista}</em></div>` : '';
 
     dom.pedagogicalInfo.innerHTML = `
       <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
-        <span style="background: ${part.color}; color: white; border-radius: 50%; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold;">${part.num}</span>
-        <strong style="color: ${part.color}; font-size: 0.95rem;">${part.nombre}</strong>
+        <span style="background: ${part.color}; color: white; border-radius: 50%; width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold;">${part.num}</span>
+        <strong style="color: ${part.color}; font-size: 1rem;">${part.nombre}</strong>
       </div>
-      <p style="margin-bottom: 4px;">${part.descripcion}</p>
-      <div style="background: #f1f5f9; border-left: 3px solid ${part.color}; padding: 4px 8px; border-radius: 2px; margin-top: 4px;">
-        <strong>🎯 Función:</strong> ${part.funcion}
+      <p style="margin-bottom: 6px; font-size: 0.9rem; line-height: 1.4;">${part.descripcion}</p>
+      <div style="background: #f1f5f9; border-left: 3.5px solid ${part.color}; padding: 6px 10px; border-radius: 4px; margin-top: 4px; font-size: 0.84rem; color: #1e293b;">
+        <strong>🎯 Función Principal:</strong> ${part.funcion}
       </div>
       ${hintHtml}
     `;
@@ -672,65 +690,94 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // TOUCH DRAG AND DROP PARA SMARTPHONES Y TABLETS
+  // TOUCH DRAG AND DROP OPTIMIZADO PARA SMARTPHONES Y TABLETS
   function setupTouchDrag(tagEl, partId) {
     let touchClone = null;
+    let startX = 0;
+    let startY = 0;
+    let isDragging = false;
 
     tagEl.addEventListener('touchstart', (e) => {
       if (state.isGameOver) return;
       if (e.touches.length > 1) return;
       const touch = e.touches[0];
+      startX = touch.clientX;
+      startY = touch.clientY;
+      isDragging = false;
       draggedPartId = partId;
-
-      touchClone = tagEl.cloneNode(true);
-      touchClone.style.position = 'fixed';
-      touchClone.style.zIndex = '1000';
-      touchClone.style.pointerEvents = 'none';
-      touchClone.style.opacity = '0.9';
-      touchClone.style.transform = 'scale(1.05)';
-      touchClone.style.boxShadow = '0 10px 25px rgba(0,0,0,0.3)';
-      touchClone.style.width = `${tagEl.offsetWidth}px`;
-      touchClone.style.left = `${touch.clientX - tagEl.offsetWidth / 2}px`;
-      touchClone.style.top = `${touch.clientY - 30}px`;
-      document.body.appendChild(touchClone);
-
-      tagEl.classList.add('dragging');
     }, { passive: true });
 
     tagEl.addEventListener('touchmove', (e) => {
-      if (!touchClone) return;
+      if (state.isGameOver) return;
       const touch = e.touches[0];
-      touchClone.style.left = `${touch.clientX - tagEl.offsetWidth / 2}px`;
-      touchClone.style.top = `${touch.clientY - 30}px`;
+      const deltaX = Math.abs(touch.clientX - startX);
+      const deltaY = Math.abs(touch.clientY - startY);
 
-      const elemBelow = document.elementFromPoint(touch.clientX, touch.clientY);
-      document.querySelectorAll('.target-zone').forEach(z => z.classList.remove('drag-over'));
-
-      if (elemBelow) {
-        const zone = elemBelow.closest('.target-zone') || document.querySelector(`.target-zone[data-part-id="${elemBelow.dataset.partId}"]`);
-        if (zone) zone.classList.add('drag-over');
+      // Si el dedo se desplaza más de 7px, se activa el arrastre visual
+      if (!isDragging && (deltaX > 7 || deltaY > 7)) {
+        isDragging = true;
+        touchClone = tagEl.cloneNode(true);
+        touchClone.style.position = 'fixed';
+        touchClone.style.zIndex = '3000';
+        touchClone.style.pointerEvents = 'none';
+        touchClone.style.opacity = '0.92';
+        touchClone.style.transform = 'scale(1.05)';
+        touchClone.style.boxShadow = '0 12px 28px rgba(0,0,0,0.35)';
+        touchClone.style.width = `${Math.min(tagEl.offsetWidth, 180)}px`;
+        touchClone.style.left = `${touch.clientX - Math.min(tagEl.offsetWidth, 180) / 2}px`;
+        touchClone.style.top = `${touch.clientY - 35}px`;
+        document.body.appendChild(touchClone);
+        tagEl.classList.add('dragging');
       }
-    }, { passive: true });
+
+      if (isDragging && touchClone) {
+        if (e.cancelable) e.preventDefault(); // Evita scroll vertical de página mientras arrastra
+        const width = Math.min(tagEl.offsetWidth, 180);
+        touchClone.style.left = `${touch.clientX - width / 2}px`;
+        touchClone.style.top = `${touch.clientY - 35}px`;
+
+        const elemBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+        document.querySelectorAll('.target-zone').forEach(z => z.classList.remove('drag-over'));
+
+        if (elemBelow) {
+          const zone = elemBelow.closest('.target-zone') || document.querySelector(`.target-zone[data-part-id="${elemBelow.dataset.partId}"]`);
+          if (zone) zone.classList.add('drag-over');
+        }
+      }
+    }, { passive: false });
 
     tagEl.addEventListener('touchend', (e) => {
+      if (isDragging) {
+        if (touchClone) {
+          touchClone.remove();
+          touchClone = null;
+        }
+        tagEl.classList.remove('dragging');
+        document.querySelectorAll('.target-zone').forEach(z => z.classList.remove('drag-over'));
+
+        if (state.isGameOver) return;
+
+        const touch = e.changedTouches[0];
+        const elemBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+
+        if (elemBelow) {
+          const zone = elemBelow.closest('.target-zone') || elemBelow.closest('.target-pin');
+          if (zone && zone.dataset.partId) {
+            validatePlacement(partId, zone.dataset.partId);
+          }
+        }
+        isDragging = false;
+      }
+    });
+
+    tagEl.addEventListener('touchcancel', () => {
       if (touchClone) {
         touchClone.remove();
         touchClone = null;
       }
       tagEl.classList.remove('dragging');
       document.querySelectorAll('.target-zone').forEach(z => z.classList.remove('drag-over'));
-
-      if (state.isGameOver) return;
-
-      const touch = e.changedTouches[0];
-      const elemBelow = document.elementFromPoint(touch.clientX, touch.clientY);
-
-      if (elemBelow) {
-        const zone = elemBelow.closest('.target-zone') || elemBelow.closest('.target-pin');
-        if (zone && zone.dataset.partId) {
-          validatePlacement(partId, zone.dataset.partId);
-        }
-      }
+      isDragging = false;
     });
   }
 
